@@ -1,27 +1,33 @@
-function to_parts(word) {
-    return word.toLowerCase().split('').sort().join('');
-}
-
 function anagram(input) {
-    try {
-        var words_dict = {};
-        for (var i in input) {
-            var word = input[i].toLowerCase();
-            var word_parts = to_parts(word);
-            if (word_parts in words_dict && words_dict[word_parts].indexOf(word) === -1) {
-                words_dict[word_parts].push(word);
-            } else {
-                words_dict[word_parts] = [word];
-            }
-        }
-    }catch (err){
-        return []
+
+    if (!Array.isArray(input)){
+        return [];
     }
 
-    var output = [];
-    for (var i in words_dict) {
-        if (words_dict[i].length > 1) output.push(words_dict[i].sort());
-    }
+    let words_dict = {};
+
+    input.forEach(function (word) {
+        word = word.toLowerCase();
+        let word_parts = word.toLowerCase().split('').sort().join('');
+
+        if(!words_dict[word_parts]){
+            words_dict[word_parts]={}
+        }
+
+        words_dict[word_parts][word]=true;
+    });
+
+    let output = [];
+
+    Object.keys(words_dict).forEach(function (word_parts) {
+        let tmp = Object.keys(words_dict[word_parts]).sort();
+
+        if (tmp.length > 1){
+            output.push(tmp);
+        }
+
+    });
+
     return output.sort()
 }
 
