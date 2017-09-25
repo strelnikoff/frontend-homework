@@ -4,23 +4,23 @@ function anagram(input) {
         return [];
     }
 
-    let words_dict = {};
+    const words_dict = {};
 
-    input.forEach(function (word) {
+    input.forEach((word) => {
         word = word.toLowerCase();
-        let word_parts = word.toLowerCase().split('').sort().join('');
+        const word_parts = word.toLowerCase().split('').sort().join('');
 
-        if(!words_dict[word_parts]){
-            words_dict[word_parts]={}
+        if (!(word_parts in words_dict)){
+            words_dict[word_parts] = {}
         }
 
-        words_dict[word_parts][word]=true;
+        words_dict[word_parts][word] = true;
     });
 
-    let output = [];
+    const output = [];
 
-    Object.keys(words_dict).forEach(function (word_parts) {
-        let tmp = Object.keys(words_dict[word_parts]).sort();
+    Object.keys(words_dict).forEach((word_parts) => {
+        const tmp = Object.keys(words_dict[word_parts]).sort();
 
         if (tmp.length > 1){
             output.push(tmp);
